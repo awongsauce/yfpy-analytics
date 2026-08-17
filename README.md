@@ -1,361 +1,301 @@
-[<img src="https://raw.githubusercontent.com/uberfastman/yfpy/refs/heads/main/docs/yfpy-logo.svg" width="400"/>](https://github.com/uberfastman/yfpy)
+## YFPY-analytics - YFPY fork
 
-## YFPY - Yahoo Fantasy Sports API Wrapper
+Dumbing down the API for simpletons (me)
 
-Python API wrapper for the Yahoo Fantasy Sports public API
+Credit to *Author: Wren J. R. (uberfastman)*
 
-*Author: Wren J. R. (uberfastman)*
+<sup>Detailed documentation on original YFPY can be found at [https://yfpy.uberfastman.com](https://yfpy.uberfastman.com).</sup>
 
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/uberfastman/yfpy?color=yellowgreen&label=latest%20release&sort=semver)](https://github.com/uberfastman/yfpy/releases/latest)
-[![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/uberfastman/yfpy?color=yellowgreen&label=latest%20version&sort=semver)](https://github.com/uberfastman/yfpy/tags)
-[![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/uberfastman/yfpy/python-package.yml?color=brightgreen&label=build)](https://github.com/uberfastman/yfpy/actions/workflows/python-package.yml)
-
-[![PyPI](https://img.shields.io/pypi/v/yfpy.svg?style=flat)](https://pypi.python.org/pypi/yfpy)
-[![PyPI](https://img.shields.io/pypi/dm/yfpy.svg?style=flat)](https://pypi.python.org/pypi/yfpy)
-[![PyPI](https://img.shields.io/pypi/pyversions/yfpy.svg?style=flat)](https://pypi.python.org/pypi/yfpy)
-[![PyPI](https://img.shields.io/pypi/l/yfpy.svg?style=flat)](https://pypi.python.org/pypi/yfpy)
-
----
-
-<sub>***Do you like the YFPY API wrapper? Star the repository on GitHub and please consider helping support its ongoing development:***</sub>
-
-[<img src="https://github.com/uberfastman/yfpy/raw/main/resources/images/donate-paypal.png" width="75"/>](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=VZZCNLRHH9BQS) [<img src="https://github.com/uberfastman/yfpy/raw/main/resources/images/donate-bitcoin.png" width="75"/>](https://share.trustwallet.com/ZoAkTpY1I9) [<img src="https://github.com/uberfastman/yfpy/raw/main/resources/images/donate-ethereum.png" width="75"/>](https://share.trustwallet.com/MF8YBO01I9)
-
-|                                                                <sub><sup>Cryptocurrency</sup></sub> |                                                      <sub><sup>Address</sup></sub>                                                       |
-|----------------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------------------------------------:|
-|                                                                 <sub><sup>Bitcoin (BTC)</sup></sub> |                                    <sub><sup>`bc1qataspvklhewtswm357m0677q4raag5new2xt3e`</sup></sub>                                    | 
-|                                                                <sub><sup>Ethereum (ETH)</sup></sub> |                                    <sub><sup>`0x5eAa522e66a90577D49e9E72f253EC952CDB4059`</sup></sub>                                    |
-
-<sub><sup></sup></sub>
-
----
-
-**[READ THE DOCS HERE!](https://yfpy.uberfastman.com)**
-<br/>
-<sup>Detailed documentation on YFPY can be found at [https://yfpy.uberfastman.com](https://yfpy.uberfastman.com).</sup>
-
-### Table of Contents
-
-* [About](#about)
-* [Installation](#installation)
-    * [Pip](#pip)
-    * [uv](#uv)
-    * [Manual](#manual)
-* [Setup](#setup)
-    * [Yahoo Developer Network App](#yahoo-developer-network-app)
-    * [Environment Variables](#environment-variables)
-* [Usage](#usage)
-    * [Authentication](#authentication)
-        * [Programmatic Persistent Authentication](#programmatic-persistent-authentication)
-        * [Persistent Authentication Using Access Token Fields](#persistent-authentication-using-access-token-fields)
-        * [Persistent Authentication Using Access Token JSON](#persistent-authentication-using-access-token-json)
-    * [Querying the Yahoo Fantasy Sports API](#querying-the-yahoo-fantasy-sports-api)
-    * [Docker](#docker)
-        * [Docker Development](#docker-development)
-        * [Docker Image Deployment](#docker-image-deployment)
-* [Testing](#testing)
-    * [Unit Tests](#unit-tests)
-    * [Integration Tests](#integration-tests)
-    * [Run Tests](#run-tests)
-* [Dependencies](#dependencies)
-    * [Platform](#platform)
-    * [Python](#python)
-    * [Development](#development)
-* [Troubleshooting](#troubleshooting)
-    * [Yahoo Fantasy Sports API](#yahoo-fantasy-sports-api)
-    * [JetBrains and PyCharm](#jetbrains-and-pycharm)
-
----
-
-<a name="about"></a>
-### About
-
-YFPY is a comprehensive wrapper around the Yahoo Fantasy Sports API. It allows for easy retrieval and parsing of almost any data you might wish to extract and use from any Yahoo fantasy league to which your Yahoo account has access (or for public leagues). The primary focus of this wrapper is on fantasy football (NFL), but it also supports usage with fantasy hockey (NHL), fantasy baseball (MLB), and fantasy basketball (NBA). 
-
----
-
-<a name="installation"></a>
-### Installation
-
-<a name="pip"></a>
-#### Pip
-
-* If you wish to use YFPY within another project, from within your project directory, run:
-    ```shell
-    pip install yfpy
-    ```
-    
-    or add `yfpy` to your project `requirements.txt`.
-
-<a name="uv"></a>
-#### uv
-
-* If you wish to use YFPY within another project, from within your project directory, run:
-    ```shell
-    uv add yfpy
-    ```
-    
-    or add `yfpy` to the project `dependencies` section in your `pyproject.toml`.
-
-<a name="manual"></a>
-#### Manual
-
-* If you wish to download and use YFPY locally, clone the git repository:
-  ```shell
-  git clone git@github.com:uberfastman/yfpy.git
-  ```
-
----
-
-<a name="setup"></a>
-### Setup
-
-<a name="yahoo-developer-network-app"></a>
-#### Yahoo Developer Network App
-
-In order to use YFPY with private fantasy leagues, you must set up an app on your Yahoo account to allow access. Follow the step-by-step guide below for instructions on how to do so, or see [Getting Started](https://developer.yahoo.com/oauth2/guide/openid_connect/getting_started.html) in the Yahoo Developer Network docs for more details.
-
-**Note:** *If you are only planning on using YFPY to pull "read only" data from public leagues, you do not need to do this.*
-
-* Log in to a Yahoo account with access to whatever fantasy leagues from which you wish to retrieve data.
-* Go to [https://developer.yahoo.com/apps/create/](https://developer.yahoo.com/apps/create/) and create an app (you must be logged into your Yahoo account as stated above). For the app, select the following options:
-    * `Application Name` (**Required**): `yfpy` (you can name your app whatever you want, but this is just an example).
-    * `Application Type` (**Required**): select the `Installed Application` radio button.
-    * `Description` (*Optional*): you *may* write a short description of what the app does.
-    * `Home Page URL` (*Optional*): if you have a web address related to your app you *may* add it here.
-    * `Redirect URI(s)` (**Required**): this field must contain a valid redirect address, so you can use `https://localhost:8080`
-    * `API Permissions` (**Required**): check the `Fantasy Sports` checkbox. You can leave the `Read` option selected (appears in an accordion expansion underneath the `Fantasy Sports` checkbox once you select it).
-    * Click the `Create App` button.
-    * Once the app is created, it should redirect you to a page for your app, which will show both a `Client ID` and a `Client Secret`.
-    * Copy the `Client ID` and `Client Secret` and proceed with the steps in [Environment Variables](#environment-variables) or [Programmatic Persistent Authentication](#programmatic-persistent-authentication).
-
-<a name="environment-variables"></a>
-#### Environment Variables
-
-YFPY now supports the usage of environment variables, either directly within the command line or using a `.env` file. Any environment variables exported to the same shell in which YFPY runs will automatically be read when a `YahooFantasySportsQuery` object is instantiated when `env_var_fallback=True` (default).
-
-* If you wish to *also* use environment variables stored in a `.env` file, you can set up a `.env` file by making a copy of `.env.template` in the root project directory and renaming it `.env` (you can do this in the command line by running `cp .env.template .env`).
-* Paste the `Client ID` and `Client Secret` retrieved by following the steps in [Yahoo Developer Network App](#yahoo-developer-network-app) into their respective environment variables in your `.env` file:
-```dotenv
-YAHOO_CONSUMER_KEY=<YAHOO_DEVELOPER_APP_CONSUMER_KEY_STRING>
-YAHOO_CONSUMER_SECRET=<YAHOO_DEVELOPER_APP_CONSUMER_SECRET_STRING>
-```
-* YFPY is configured by default to check for environment variables for authentication with Yahoo, so you will now be able to proceed directly to [Authentication](#authentication).
-
-**Note**: *You can disable the fallback to environment variables behavior during instantiation of a YFPY query by passing the argument `env_var_fallback=False` to the object:*
-```python
-from yfpy.query import YahooFantasySportsQuery
-
-query = YahooFantasySportsQuery(
-    league_id="<YAHOO_LEAGUE_ID>",
-    game_code="nfl",
-    game_id=449,
-    yahoo_consumer_key="<YAHOO_CONSUMER_KEY>",
-    yahoo_consumer_secret="<YAHOO_CONSUMER_SECRET>",
-    env_var_fallback=False
-)
-```
-
----
-
-<a name="usage"></a>
 ### Usage
 
-<a name="authentication"></a>
-#### Authentication
-
-* Follow the instructions in the [Installation](#installation) and [Setup](#setup) sections.
-* The ***first*** time you use YFPY, a browser window will open up asking you to allow your app to access your Yahoo fantasy sports data. You ***MUST*** hit allow, and then copy the verification code that pops up into the command line prompt where it will now be asking for verification, hit enter, and the OAuth2 three-legged handshake should be complete and your data should have been successfully retrieved.
-
-**Note**: *If you are running YFPY in Docker, instead of opening a new browser window, YFPY will output a URL to the command line, which you must then copy to a browser window in order to log in to your Yahoo account, allow access to your app, and retrieve the required verification code.*
-
-<a name="programmatic-persistent-authentication"></a>
-##### Programmatic Persistent Authentication
-
-YFPY supports programmatic authentication using `yahoo_consumer_key` and `yahoo_consumer_secret` arguments when instantiating a `YahooFantasySportsQuery` object. Additionally, you can pass in either a valid JSON string or a Python dictionary to `yahoo_access_token_json` containing all required fields of a Yahoo access token.
-
-* Providing `yahoo_consumer_key` and `yahoo_consumer_secret` overrides any values provided in a `.env` file.
-* Providing a value to `yahoo_access_token_json` overrides `yahoo_consumer_key`/`yahoo_consumer_secret` values *and* any values provided in a `.env` file for Yahoo access token individual fields.
-  * Required fields (either in a JSON string with escaped double quotes or a Python dictionary) for the value of `yahoo_access_token_json` are the following:
-    * `access_token`
-    * `consumer_key`
-    * `consumer_secret`
-    * `guid`
-    * `refresh_token`
-    * `token_time`
-    * `token_type`
-  * The `consumer_key` and `consumer_secret` fields in `yahoo_access_token_json` override any values provided in `yahoo_consumer_key`/`yahoo_consumer_secret`.
-
-Example of Using `yahoo_access_token_json`:
+* **Getting draft results**
+```
+df = analytics.expanded_draft_results(query)
+```
 ```python
-from yfpy.query import YahooFantasySportsQuery
-
-query = YahooFantasySportsQuery(
-    league_id="<YAHOO_LEAGUE_ID>",
-    game_code="nfl",
-    game_id=449,
-    yahoo_access_token_json={
-        "access_token": "<YAHOO_ACCESS_TOKEN>",
-        "consumer_key": "<YAHOO_CONSUMER_KEY>",
-        "consumer_secret": "<YAHOO_CONSUMER_SECRET>",
-        "guid": "<YAHOO_TOKEN_GUID>",
-        "refresh_token": "<YAHOO_REFRESH_TOKEN>",
-        "token_time": 1234567890.123456,
-        "token_type": "bearer"
-    }
-)
+df
 ```
 
-<a name="persistent-authentication-using-access-token-fields"></a>
-##### Persistent Authentication Using Access Token Fields
 
-* YFPY no longer uses JSON files to store Yahoo credentials or access tokens. However, if you wish to preserve your access token in order to remain verified, you can now instantiate a YFPY query with `save_token_data_to_env_file=True`, which will write all required Yahoo access token fields an `.env` file located in the provided `env_file_location` directory.
-* For all subsequent runs of your app, you should be able to keep retrieving Yahoo fantasy sports data using YFPY without re-verifying, since the generated refresh token should now just renew whenever you use the same `.env` file to authenticate your app.
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Overall pick</th>
+      <th>Round</th>
+      <th>team_id</th>
+      <th>player_id</th>
+      <th>full_name</th>
+      <th>Team code</th>
+      <th>Team</th>
+      <th>player_name_clean</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>1</td>
+      <td>466.l.87564.t.4</td>
+      <td>466.p.5352</td>
+      <td>Nikola Jokić</td>
+      <td>DEN</td>
+      <td>LeGolf Injury</td>
+      <td>Nikola Jokic</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>1</td>
+      <td>466.l.87564.t.10</td>
+      <td>466.p.10094</td>
+      <td>Victor Wembanyama</td>
+      <td>SAS</td>
+      <td>Knecht 4</td>
+      <td>Victor Wembanyama</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>1</td>
+      <td>466.l.87564.t.2</td>
+      <td>466.p.5185</td>
+      <td>Giannis Antetokounmpo</td>
+      <td>MIL</td>
+      <td>Paolamelo &amp; The Uncs</td>
+      <td>Giannis Antetokounmpo</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>1</td>
+      <td>466.l.87564.t.9</td>
+      <td>466.p.6022</td>
+      <td>Shai Gilgeous-Alexander</td>
+      <td>OKC</td>
+      <td>One Injury After Another</td>
+      <td>Shai Gilgeous-Alexander</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>1</td>
+      <td>466.l.87564.t.12</td>
+      <td>466.p.6014</td>
+      <td>Luka Dončić</td>
+      <td>LAL</td>
+      <td>Bronny's Bookie</td>
+      <td>Luka Doncic</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>151</th>
+      <td>152</td>
+      <td>13</td>
+      <td>466.l.87564.t.1</td>
+      <td>466.p.6567</td>
+      <td>Quentin Grimes</td>
+      <td>PHI</td>
+      <td>Muh Queen of the 7 Parishes</td>
+      <td>Quentin Grimes</td>
+    </tr>
+    <tr>
+      <th>152</th>
+      <td>153</td>
+      <td>13</td>
+      <td>466.l.87564.t.3</td>
+      <td>466.p.5764</td>
+      <td>Lonzo Ball</td>
+      <td>CLE</td>
+      <td>The Book Of Joel</td>
+      <td>Lonzo Ball</td>
+    </tr>
+    <tr>
+      <th>153</th>
+      <td>154</td>
+      <td>13</td>
+      <td>466.l.87564.t.8</td>
+      <td>466.p.4892</td>
+      <td>Klay Thompson</td>
+      <td>DAL</td>
+      <td>Luka Dongitch</td>
+      <td>Klay Thompson</td>
+    </tr>
+    <tr>
+      <th>154</th>
+      <td>155</td>
+      <td>13</td>
+      <td>466.l.87564.t.6</td>
+      <td>466.p.6580</td>
+      <td>Ayo Dosunmu</td>
+      <td>MIN</td>
+      <td>Davis BerTrans Rights</td>
+      <td>Ayo Dosunmu</td>
+    </tr>
+    <tr>
+      <th>155</th>
+      <td>156</td>
+      <td>13</td>
+      <td>466.l.87564.t.5</td>
+      <td>466.p.10282</td>
+      <td>Isaiah Collier</td>
+      <td>UTA</td>
+      <td>Barnes and Noble</td>
+      <td>Isaiah Collier</td>
+    </tr>
+  </tbody>
+</table>
+<p>156 rows × 8 columns</p>
+</div>
 
-**Note**: *You **MUST** provide a value for `env_file_location` or else **NO** Yahoo access token data will be saved!*
+<br/>
 
-<a name="persistent-authentication-using-access-token-json"></a>
-##### Persistent Authentication Using Access Token JSON
+* **Viewing Average Draft Position (ranking) vs actual**
 
-* YFPY *also* supports the use of a **single** environment variable by providing a valid JSON string in `YAHOO_ACCESS_TOKEN_JSON`. This environment variable is only used if `env_var_fallback=True` (default) when instantiating a YFPY query.
-* You can save the Yahoo access token fields as valid JSON with escaped double quotes (`"`) by invoking `YahooFantasySportsQuery.save_access_token_data_to_env_file` with `save_json_to_var_only=True` (instead of saving the Yahoo access token fields to individual environment variables as described in [Persistent Authentication Using Access Token Fields](#persistent-authentication-using-access-token-fields)) like below:
+```
+df_draft_adp = analytics.league_draft_vs_ADP(df)
+```
+<img width="1000" height="600" alt="test_adp_3" src="https://github.com/user-attachments/assets/d73e4e89-15e0-4a2c-b7c3-ea3fad8bed53" />
+
+
+<br/>
+
+ * **Visualizing how close h2h matchups are**
+
+```
+current_week = 20
+
+league_matchups = query.get_league_matchups_by_week(current_week)
+df = pd.DataFrame(league_matchups)
+week_results = analytics.week_results_concat_explode(df)
+analytics.h2h_charts(week_results)
+```
+<img width="2573" height="1637" alt="Muh Queen of the 7 Parishes vs Luka Dongitch" src="https://github.com/user-attachments/assets/d13a42dc-919e-40ff-a45e-4e98e55c1acb" />
+
+
+
+<br/>
+
+* **Visualizing how each team performed by percentile compared to top team in each category**
+
+```
+analytics.normalized_performance_chart(week_results)
+```
+<img width="1400" height="700" alt="Team performance" src="https://github.com/user-attachments/assets/35802bf5-3af5-4092-8b8c-5510ab32ed9e" />
+
+
+
+<br/>
+
+* **Visualizing team performance in heat chart of simple ranking (higher number = better)**
+
+```
+analytics.cat_heat_map_chart(week_results)
+```
+<img width="2816" height="1578" alt="Cat_heat_map" src="https://github.com/user-attachments/assets/0c416aa9-5b68-4085-b776-7a699ea9f772" />
+
+
+<br/>
+
+* **Seeing cumulative performance over the whole season**
+
+```
+full_season_df = full_season_standings(18)
+season_standings_chart(full_season_df)
+
+```
+<img width="4395" height="1918" alt="Season_long" src="https://github.com/user-attachments/assets/e3c7d118-a546-430b-b9c4-29b2a1530f28" />
+
+
+
+
+<br/>
+
+* **Getting league transaction history**
+
+```
+df = analytics.get_transactions(query)
+df2 = analytics.insert_transact_info(df)
+```
+```
+df2.value_counts("adds").iloc[1:10] # show most added players
+```
+   
+      adds
+    Dylan Harper        6
+    Ajay Mitchell       5
+    Isaiah Collier      5
+    Andre Drummond      5
+    Tre Jones           5
+    Kyle Kuzma          5
+    Ryan Kalkbrenner    4
+    Peyton Watson       4
+    Kyle Filipowski     4
+    Name: count, dtype: int64
+
+
+
+
 ```python
-from pathlib import Path
-
-from yfpy.query import YahooFantasySportsQuery
-
-query = YahooFantasySportsQuery(
-    league_id="<YAHOO_LEAGUE_ID>",
-    game_code="nfl",
-    game_id=449,
-    yahoo_consumer_key="<YAHOO_CONSUMER_KEY>",
-    yahoo_consumer_secret="<YAHOO_CONSUMER_SECRET>",
-    env_file_location=Path(".env")
-)
-
-query.save_access_token_data_to_env_file(
-    env_file_location=Path(".env"), 
-    save_json_to_var_only=True
-)
+df2.value_counts("drops").iloc[1:10] # show most dropped players
 ```
 
-<a name="querying-the-yahoo-fantasy-sports-api"></a>
-#### Querying the Yahoo Fantasy Sports API
 
-* See the documentation on the  [`yfpy.query.YahooFantasySportsQuery`](https://yfpy.uberfastman.com/_autosummary/yfpy.query.YahooFantasySportsQuery.html#yfpy.query.YahooFantasySportsQuery) class for example usage of all available queries.
-* See [`scripts/quickstart.py`](https://github.com/uberfastman/yfpy/blob/main/scripts/quickstart.py) for example usage output.
-  * Uncomment/comment out whichever configuration values in their respective functions with which you wish to experiment.
-  * Uncomment/comment out whichever query lines in the `RUN QUERIES` section you wish to run.
-  * Uncomment/comment out whichever query lines in the `CHECK FOR MISSING DATA FIELDS` section you wish to check for any new/missing data fields returned by the Yahoo Sports Fantasy Football API.
 
-<a name="docker"></a>
-#### Docker
 
-YFPY can be used within Docker for a more seamless, platform-agnostic experience.
+    drops
+    Ajay Mitchell      5
+    Andre Drummond     5
+    Kyle Kuzma         5
+    Isaiah Collier     5
+    Dylan Harper       5
+    Moses Moody        4
+    Tre Jones          4
+    Sam Hauser         4
+    Kyle Filipowski    4
+    Name: count, dtype: int64
 
-* Run the Docker container (pulls the YFPY Docker image from GitHub Package Registry):
-    ```shell
-    docker compose up
-    ``` 
-* You can then run commands in the Docker container in two different ways:
-  * Connect to the running container and run commands from within it:
-    ```shell
-    docker exec -it yfpy-package-1 bash
-    ```
-    Then:
-    ```shell
-    python scripts/quickstart.py
-    ```
-  * Send commands to the running container from your host machine:
-    ```shell
-    docker exec -i yfpy-package-1 bash -c "python scripts/quickstart.py"
-    ```
 
-<a name="docker-development"></a>
-##### Docker Development
 
-* Run the Docker container for local development (mount all local code into container):
-    ```shell
-    docker compose -f compose.yaml -f compose.dev.yaml up
-    ```
 
-<a name="docker-image-deployment"></a>
-##### Docker Image Deployment
-
-See [DEPLOYMENT.md](https://github.com/uberfastman/yfpy/blob/main/DEPLOYMENT.md) for Docker image deployment.
-
----
-
-<a name="testing"></a>
-### Testing
-
-YFPY has a collection of fully functional code snippets that can be run using [pytest](https://docs.pytest.org/en/6.2.x/). These snippets demonstrate how to use YFPY to retrieve your Yahoo Fantasy Sports data.
-
-<a name="unit-tests"></a>
-#### Unit Tests
-
-* See the [`test/unit`](https://github.com/uberfastman/yfpy/blob/main/test/unit/) directory for example code snippets using pytest.
-
-<a name="integration-tests"></a>
-#### Integration Tests
-
-* See the [`test/integration`](https://github.com/uberfastman/yfpy/blob/main/test/integration/) directory for example code snippets using pytest.
-* Before running any integration tests, make a copy of [`auth/.env.template`](https://github.com/uberfastman/yfpy/blob/main/auth/.env.template) in the [`auth/`](https://github.com/uberfastman/yfpy/blob/main/auth/) directory and rename it to `.env`.
-* Copy your Yahoo `Client ID` and `Client Secret` into the environment variables in `.env` so that pytest can use them when hitting the Yahoo Fantasy Sports API.
-* If this is the first time running pytest with your Yahoo API credentials, you ***MUST*** allow interactive prompts within pytest by using the `-s` flag.
-* The fixture values in [`test/integration/conftest.py`](https://github.com/uberfastman/yfpy/blob/main/test/integration/conftest.py) are defined in [`scripts/quickstart.py`](https://github.com/uberfastman/yfpy/blob/main/scripts/quickstart.py), and can be changed for testing by uncommenting/commenting out the values inside each respective function.
-
-<a name="run-tests"></a>
-#### Run Tests
-
-* You can invoke all pytest tests (both integration test and unit tests) by running the below from the root directory:
-  * `pytest -v -s`
-* If you want to run only the unit tests, you can run:
-  * `pytest -v -s -m unit`
-* If you want to run only the integration tests, you can run:
-  * `pytest -v -s -m integration`
-
----
-
-<a name="dependencies"></a>
-### Dependencies
-
-<a name="platform"></a>
-#### Platform
-
-YFPY has only been tested extensively on macOS, but is written to be platform-agnostic, and seems to work without issue on Windows and Linux. 
-
-<a name="python"></a>
-#### Python
-
-YFPY requires Python 3.10 or later, and has been tested through Python 3.13.
-
-<a name="development"></a>
-#### Development
-
-Run, development, and build dependencies (*not* including transitive dependencies) can be viewed in `pyproject.toml`.
-
----
-
-<a name="troubleshooting"></a>
-### Troubleshooting
-
-<a name="yahoo-fantasy-sports-api"></a>
-#### Yahoo Fantasy Sports API
-
-Occasionally when you use the Yahoo Fantasy Sports API, there are hangups on the other end that can cause data not to transmit, and you might encounter an error similar to this:
-```shell
-Traceback (most recent call last):
-  File "yfpy-app.py", line 114, in <module>
-    var = app.run()
-  File "/Users/your_username/PATH/T0/LOCAL/PROJECT/yfpy-app.py", line 429, in run
-    for team in team_standings:
-IndexError: list index out of range
+```python
+df.value_counts("NBA team").iloc[1:10] # show NBA teams with most transactions (adds + drops)
 ```
 
-Typically, when the above error (or a similar error) occurs, it simply means that one of the Yahoo Fantasy Sports API calls failed and so no data was retrieved. This can be fixed by simply re-running data query.
 
-<a name="jetbrains-and-pycharm"></a>
-#### JetBrains and PyCharm
 
-If you are using PyCharm for development against this project and want the IDE to be aware of the installed dependencies in your Python interpreter, PyCharm currently has a bug with its `uv` integration that _requires_ the project to have the `uv` Python interpreter exists in a `.venv` directory in the project root. In the event that you have a `uv` Python interpreter configured elsewhere, you can run `ln -sf /path/to/uv/interpreter/directory .venv` in the YFPY project root, and then configure the Python interpreter in PyCharm to point to the Python executable in the `.venv` symbolic link, and all of your installed dependencies will show up and the IDE will be aware that they are installed.
+
+    NBA team
+    BKN    18
+    UTA    18
+    IND    18
+    DEN    17
+    SAS    16
+    WAS    16
+    OKC    15
+    SAC    14
+    LAC    14
+    Name: count, dtype: int64
+* 
+
+
+
+
+
+
+
+
+
+
+
+
